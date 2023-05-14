@@ -1,11 +1,15 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mood_fresher/Screen/home.dart';
 import 'package:mood_fresher/utils/colors.dart';
 import 'package:mood_fresher/Screen/feed.dart';
 
+List<CameraDescription> cameras = [];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -34,7 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'Mood Fresher',
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      home: const FeedScreen(),
+      home: FeedScreen(),
     );
   }
 }
